@@ -1,23 +1,29 @@
 <template>
   <div>
-    <h1>Lista de Galpões</h1>
-    <div v-for="w in warehouses" :key="w.code">
-      <WarehouseCard v-bind:name= w.name v-bind:code= w.code v-bind:postal_code= w.postal_code />
-    </div>
+    <Form @sendWarehouse="refresh" /><br>
+    <v-row justify="center">
+      <v-col sm="12" md="10">
+        <v-text-field label="Buscar galpões" v-model="term"></v-text-field>
+      </v-col>
+    </v-row>
+    <WarehouseTable :warehouses="filterWarehouses"/>
   </div>
 </template>
 
 <script>
-  import WarehouseCard from '@/components/WarehouseCard.vue'
+  import WarehouseTable from '@/components/WarehouseTable.vue'
+  import Form from '@/components/Form.vue'
 
   export default ({
     name: 'WarehouseList',
     components:{
-      WarehouseCard
+      WarehouseTable,
+      Form,
     },
     data(){
       return{
         warehouses: [],
+        term: "",
       }
     },
 
@@ -29,6 +35,15 @@
       async getWarehouses(){
         const response = await this.$http.get('http://localhost:3000/api/v1/warehouses');
         return response.json();
+      },
+
+      refresh(value){
+        this.warehouses.unshift(value);
+      }
+    },
+    computed: {
+      filterWarehouses(){
+        return this.warehouses.filter((warehouse) => warehouse.name.toLowerCase().includes(this.term.toLowerCase()));
       }
     }
   })

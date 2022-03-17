@@ -23,11 +23,6 @@ const routes = [
     name: 'WarehouseList',
     component: () => import('../views/WarehouseList.vue')
   },
-  {
-    path: '/warehouses/new',
-    name: 'WarehouseForm',
-    component: () => import('../views/WarehouseForm.vue')
-  }
 ]
 
 const router = new VueRouter({

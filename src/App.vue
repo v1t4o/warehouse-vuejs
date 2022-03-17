@@ -1,40 +1,25 @@
 <template>
-  <div id="app">
-    <Menu username="João" />
-    <router-view/>
-  </div>
+  <v-app>
+    <Menu />
+    <v-main>
+      <v-container>
+        <router-view/>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-  import Menu from './components/Menu.vue'
+import Menu from '@/components/Menu'
 
-  export default {
-    components: {
-      Menu
-    }
-  }
+export default {
+  name: 'App',
+
+  components: {
+    Menu,
+  },
+  data: () => ({
+    //
+  }),
+};
 </script>
-
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
